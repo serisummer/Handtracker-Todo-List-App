@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+.schedule {
+    border: 1px solid #000;
+    border-radius: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-right: 2em;
+}
+
+.title {
+    border: 1px solid #3014ba;
+    border-radius: 1em;
+    margin: 1em;
+}
+
+.row-styling {
+    border: 1px solid #3014ba;
+    border-radius: 1em;
+    margin: 1em;
+    padding-bottom: 1em;
+}

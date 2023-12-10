@@ -12,7 +12,7 @@ import { HandtrackerComponent } from './handtracker/handtracker.component';
     AppComponent,
     UiComponent,
     HomePageComponent,
-    HandtrackerComponent
+    HandtrackerComponent,
   ],
   imports: [
     BrowserModule,
