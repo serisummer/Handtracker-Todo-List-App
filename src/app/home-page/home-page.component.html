@@ -13,22 +13,24 @@
             </div>
             <div class="row row-styling">
                 <h2>Instructions</h2>
-                <ul>
-                    <li>Open Hand:       add task</li>
-                    <li>Hand Pointing:   select task</li>
-                    <li>Hand Pinching:   check/uncheck task</li>
-                    <li>Closed Hand:     remove task</li>
-                    <li>Two Closed Hand: clear schedule</li>
+                <ul style="padding-left: 2em;">
+                    <li><b>Open Hand</b>: add task</li>
+                    <li><b>Hand Pointing</b>: select task</li>
+                    <li><b>Hand Pinching</b>: check/uncheck task</li>
+                    <li><b>Closed Hand</b>: remove task</li>
+                    <li><b>Two Closed Hands</b>: clear schedule</li>
+                    <li><b>One Open Hand, One Closed Hand</b>: sort by task label</li>
+                    <li><b>One Open Hand, One Hand Pointing</b>: sort by task completion status</li>
                 </ul>
             </div>
         </div>
     
         <div class="col-sm schedule">
             <h2>Schedule</h2>
-            <h3>Selected Task: {{selected}}</h3>
+            <h4>Selected Task: {{selected}}</h4>
             <div *ngFor="let task of tasks">
                 <mat-checkbox [(ngModel)]="task.checked">
-                    <div *ngIf="task.label==selected; else elseBlock">
+                    <div *ngIf="task.id==selected; else elseBlock">
                         <article style="background-color: #00ffff;">
                             {{ task.label }}
                         </article>

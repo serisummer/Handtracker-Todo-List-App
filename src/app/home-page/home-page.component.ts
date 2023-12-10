@@ -8,9 +8,10 @@ import { PredictionEvent } from '../prediction-event';
 })
 export class HomePageComponent implements OnInit {
   gesture: String = "";
-  selected: string = "";
+  selected: number | null;
   count: number = 0;
-  tasks: {label: string, checked: boolean; }[] = [];
+  id: number = 0;
+  tasks: {label: string, checked: boolean, id: number; }[] = [];
   constructor() { }
 
   ngOnInit(): void {
@@ -33,27 +34,34 @@ export class HomePageComponent implements OnInit {
     if (this.gesture == "Two Closed Hands") {
       this.clearSchedule();
     }
+    if (this.gesture == "Open Close") {
+      this.sortById();
+    }
+    if (this.gesture == "Open Point") {
+      this.sortByCompletionStatus();
+    }
   }
 
   addTask(){
     this.count++;
-    let task = { label: 'Task ' + this.count.toString(), checked: false };
+    this.id++;
+    let task = { label: 'Task ' + this.id.toString(), checked: false, id: this.id };
     this.tasks.push(task);
-    this.selected = task.label;
+    this.selected = task.id;
   }
 
   selectTask(){
-    let index = this.tasks.findIndex(task => task.label == this.selected);
+    let index = this.tasks.findIndex(task => task.id == this.selected);
     if (index + 1 == this.count) {
-      this.selected = this.tasks[0].label;
+      this.selected = this.tasks[0].id;
     }
     else {
-      this.selected = this.tasks[index + 1].label;
+      this.selected = this.tasks[index + 1].id;
     }
   }
 
   checkTask() {
-    let task = this.tasks.find(task => task.label == this.selected);
+    let task = this.tasks.find(task => task.id == this.selected);
     if (task) {
       if (task.checked) {
         task.checked = false;
@@ -65,17 +73,17 @@ export class HomePageComponent implements OnInit {
   }
 
   removeTask() {
-    let index = this.tasks.findIndex(task => task.label == this.selected);
+    let index = this.tasks.findIndex(task => task.id == this.selected);
     this.count--;
     if (this.count == 0) {
-      this.selected = "";
+      this.selected = null;
     }
     else {
       if (index == 0) {
-        this.selected = this.tasks[index + 1].label;
+        this.selected = this.tasks[index + 1].id;
       }
       else {
-        this.selected = this.tasks[index - 1].label;
+        this.selected = this.tasks[index - 1].id;
       }
     }
     this.tasks.splice(index, 1);
@@ -84,7 +92,17 @@ export class HomePageComponent implements OnInit {
   clearSchedule() {
     this.count = 0;
     this.tasks = [];
-    this.selected = "";
+    this.selected = null;
+  }
+
+  sortById() {
+    this.tasks.sort((a, b) => a.id - b.id);
+    this.selected = this.tasks[0].id;
+  }
+
+  sortByCompletionStatus() {
+    this.tasks.sort((a, b) => (a.checked === b.checked) ? 0 : (a.checked ? 1 : -1));
+    this.selected = this.tasks[0].id;
   }
 
 }
